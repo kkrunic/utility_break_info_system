@@ -7,6 +7,7 @@ class Geocoder:
         self.base_url = "https://nominatim.openstreetmap.org/search?"
         self.geocode_response = None
         self.json_response = None
+        self.address = None
         self.geometry = None
         self.headers = {
     'Access-Control-Allow-Origin': '*',

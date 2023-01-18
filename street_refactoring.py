@@ -63,9 +63,9 @@ def reformat_street_numbers(street_dict_list):
         for nums in i["Broj"]:
             splitted_nums = nums.split(",")
             nums_breakdown.extend(splitted_nums)
+        nums_breakdown= list(set(nums_breakdown))
+        [nums_breakdown.remove(x) for x in nums_breakdown if x == '']
+        nums_breakdown.sort()
         i["Broj"] = nums_breakdown
     
     return street_dict_list
-
-
-
