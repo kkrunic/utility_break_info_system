@@ -46,9 +46,11 @@ for idx,child in enumerate(tbl.children):
         # print(child.prettify())
         # print(child.text)
         [data_row.append(td.text) for td in child.children]
+        print(data_row)
         data_list.append(data_row)
         data_row = []
-        
+
+print(data_list)
 
 df = pd.DataFrame(columns=column_names, data=data_list)
 # print(df)
@@ -100,7 +102,7 @@ for i in range(df_rows):
     del dict_list
 
 gdf = gpd.GeoDataFrame(geometry=shape_list)
-gdf.crs = {'init': 'epsg:4326'}
+gdf.set_crs(epsg=4326)
 gdf.to_file('shapes.gpkg', driver='GPKG')
 
 # def naselje_cleaning(input_street_txt):
