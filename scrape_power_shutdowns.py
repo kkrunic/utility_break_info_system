@@ -5,58 +5,59 @@ from geocoder_nominatum import Geocoder
 from street_refactoring import street_name_parsing, reformat_street_numbers
 import geopandas as gpd
 
-url_eps = "https://www.epsdistribucija.rs/Dan_0_Iskljucenja.htm"
+# Commented block is transfered to class scraper
+# url_eps = "https://www.epsdistribucija.rs/Dan_0_Iskljucenja.htm"
 
-headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Max-Age': '3600',
-    'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
-    }
+# headers = {
+#     'Access-Control-Allow-Origin': '*',
+#     'Access-Control-Allow-Methods': 'GET',
+#     'Access-Control-Allow-Headers': 'Content-Type',
+#     'Access-Control-Max-Age': '3600',
+#     'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+#     }
 
-res = requests.get(url=url_eps, headers=headers)
+# res = requests.get(url=url_eps, headers=headers)
 
-soup = BeautifulSoup(res.content, "html.parser")
+# soup = BeautifulSoup(res.content, "html.parser")
 
-date_string = soup.table.text
-date = date_string.split(":")[1]
-date = date.strip()
+# date_string = soup.table.text
+# date = date_string.split(":")[1]
+# date = date.strip()
 
-all_t = soup.find_all('table')
-tbl = all_t[1]
-print(type(tbl))
-# print(soup.prettify())
+# all_t = soup.find_all('table')
+# tbl = all_t[1]
+# print(type(tbl))
+# # print(soup.prettify())
 
-column_names = []
-data_row = []
-data_list = []
+# column_names = []
+# data_row = []
+# data_list = []
 
-for idx,child in enumerate(tbl.children):
-    # print(f"####{idx}")
-    # print(child.text)
-    # print(type(child))
+# for idx,child in enumerate(tbl.children):
+#     # print(f"####{idx}")
+#     # print(child.text)
+#     # print(type(child))
 
-    if idx == 0:
-        print("zaglavlje")
-        [column_names.append(c.text) for c in child.children]
+#     if idx == 0:
+#         print("zaglavlje")
+#         [column_names.append(c.text) for c in child.children]
     
-    else:
-        print("Podaci")
-        # print(child.prettify())
-        # print(child.text)
-        [data_row.append(td.text) for td in child.children]
-        print(data_row)
-        data_list.append(data_row)
-        data_row = []
+#     else:
+#         print("Podaci")
+#         # print(child.prettify())
+#         # print(child.text)
+#         [data_row.append(td.text) for td in child.children]
+#         print(data_row)
+#         data_list.append(data_row)
+#         data_row = []
 
-print(data_list)
+# print(data_list)
 
-df = pd.DataFrame(columns=column_names, data=data_list)
-# print(df)
-df.to_csv("table.csv")
-del df
-df_2 = pd.read_csv("table.csv")
+# df = pd.DataFrame(columns=column_names, data=data_list)
+# # print(df)
+# df.to_csv("table.csv")
+# del df
+# df_2 = pd.read_csv("table.csv")
 
 
 print(df_2["Улице"])
