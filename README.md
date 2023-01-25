@@ -15,9 +15,9 @@ All relevant libraries are mentioned in requirements.txt document are all you ne
 Afret creating venv you should be able to run flask app. This part needs to be detaily explained once its configured.
 
 ## In the future
-
+<!-- 
 - Vodovod kvarovi
 
 - Saobracaj GSP
 
-- Radovi na putu
+- Radovi na putu -->
