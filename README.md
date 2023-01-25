@@ -13,3 +13,11 @@ After matching, OGC services are created and server in a form of OGC WMS or WFS 
 ## How tu run 
 All relevant libraries are mentioned in requirements.txt document are all you need to do is to create virtual enviroments using that file. 
 Afret creating venv you should be able to run flask app. This part needs to be detaily explained once its configured.
+
+## In the future
+
+- Vodovod kvarovi
+
+- Saobracaj GSP
+
+- Radovi na putu
