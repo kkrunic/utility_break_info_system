@@ -1,0 +1,7 @@
+FROM postgis/postgis
+
+EXPOSE 5432
+
+RUN apt-get -y update && apt-get install -y gdal-bin
+
+# RUN chmod +x ./data_import/import.sh
