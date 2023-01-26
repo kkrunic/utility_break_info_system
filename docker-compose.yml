@@ -25,5 +25,13 @@ services:
       - ./data_import:/data_import
     ports:
       - 5432:5432
+  data_processing:
+    image: processing
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.processing
+    tty: true 
+    depends_on:
+      - db
 volumes:
   data_import:
