@@ -177,6 +177,7 @@ poetry.toml
 
 # TXT files
 *.txt
+!requirements.txt
 
 # VS 
 *.vscode
