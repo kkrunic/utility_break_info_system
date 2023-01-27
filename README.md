@@ -11,13 +11,13 @@ Data is then matched with address registtry or geocoded using OSM geocoder Nomin
 After matching, OGC services are created and server in a form of OGC WMS or WFS protocol. 
 
 ## How tu run 
-All relevant libraries are mentioned in requirements.txt document are all you need to do is to create virtual enviroments using that file. 
-Afret creating venv you should be able to run flask app. This part needs to be detaily explained once its configured.
+Just run  `docker compose up ` and 3 containers will be created. One of flask app, one for a database and one for processign. You need to run data import using impoer.sh script and ther run inital scraping. 
+Another mapserver for OGC service configuration. 
 
 ## In the future
-<!-- 
-- Vodovod kvarovi
 
-- Saobracaj GSP
+1. Water system shutdowns
 
-- Radovi na putu -->
+2. Public transport- bus line changes 
+
+3. Road constuction
