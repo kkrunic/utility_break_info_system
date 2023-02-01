@@ -4,4 +4,5 @@ EXPOSE 5432
 
 RUN apt-get -y update && apt-get install -y gdal-bin
 
+# RUN sh /data_import/import.sh
 # RUN chmod +x ./data_import/import.sh
