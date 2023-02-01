@@ -1,4 +1,3 @@
-#!/bin/bash
-
-# Put any commands you want to execute here
-ogr2ogr -f 'PostgreSQL' 'PG:dbname=mydb host=localhost user=postgres password=postgres' -nln 'address' -progress zvezdara.gpkg
+for f in data_import/*.gpkg; do 
+echo "Processing $f file..." 
+ogr2ogr -f 'PostgreSQL' 'PG:dbname=mydb host=db user=postgres password=postgres' -nln 'address' -progress "$f"; done
