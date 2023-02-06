@@ -1,14 +1,15 @@
-from sqlalchemy import Column, Integer, Date, String, create_engine
+from sqlalchemy import Column, Integer, Date, String, create_engine, Numeric
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2 import Geometry
 from sqlalchemy.orm import sessionmaker
+from scrapper import ShutdownScrapper
 
 
 Base = declarative_base()
 
 class Address(Base):
     __tablename__ = "address"
-    fid = Column(Integer, primary_key=True)
+    ogc_fid = Column(Integer, primary_key=True)
     datum_unosa = Column(Date)
     kucni_broj_id = Column(Integer)
     kucni_broj = Column(String)
@@ -31,16 +32,25 @@ class Address(Base):
     ulica_ime_lat = Column(String)
     wkb_geometry = Column(Geometry(geometry_type='POINT', srid=32634))
 
-engine = create_engine("postgresql://postgres:postgres@db:5432/mydb")
+    def __repr__(self) -> str:
+        return f"Address(id={self.ogc_fid!r}, kucni_broj={self.kucni_broj!r}, ulica_ime={self.ulica_ime!r}, opstina={self.opstina_ime!r} )"
 
-Base.metadata.reflect(bind=engine)
+class PowerShutdownPoi(Base):
+    __tablename__ = "power_shutdown_poi"
+    id = Column(Integer, primary_key=True)
+    scrapped_house_numb = Column(String)
+    scrapped_street_name = Column(String)
+    matched_kucni_broj = Column(String)
+    matched_kucni_broj_lat = Column(String)
+    matched_ulica_ime = Column(String)
+    matched_ulica_ime_lat = Column(String)
+    match_percentage = Column(Numeric)
+    geom = Column(Geometry(geometry_type='POINT', srid=32634))
 
-Session = sessionmaker(bind=engine)
-session = Session()
-
-points = session.query(Address).filter(Address.fid == 1).limit(1)
-
-for point in points:
-    print(point.fid, point.wkb_geometry)
-
-session.close()
+class AddressScrapped(Base):
+    __tablename__ = "address_scrapped"
+    id = Column(Integer, primary_key=True)
+    scrapped_street_numb = Column(String)
+    scrapped_street_name = Column(String)
+    scrapped_municipality_name = Column(String)
+    scrapped_date = Column(Date)

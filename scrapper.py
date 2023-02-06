@@ -38,7 +38,7 @@ class ShutdownScrapper():
                     [column_names.append(c.text) for c in child.children]
                 
                 else:
-                    print("Podaci")
+                    # print("Podaci")
                     # print(child.prettify())
                     # print(child.text)
                     [data_row.append(td.text) for td in child.children]
