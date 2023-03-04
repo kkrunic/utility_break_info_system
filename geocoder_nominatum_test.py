@@ -4,7 +4,7 @@ import geopandas as gpd
 
 
 g = Geocoder()
-g.geocode("6 Vukasina Mandrape", "Belgrade", "Serbia", "json",1)
+g.geocode("6 Vukasina Mandrape", "Belgrade", "Serbia", "json", 1)
 print(type(g))
 clas_type = g.get_place_class()
 print("aaaa")

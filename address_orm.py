@@ -7,6 +7,7 @@ from scrapper import ShutdownScrapper
 
 Base = declarative_base()
 
+
 class Address(Base):
     __tablename__ = "address"
     ogc_fid = Column(Integer, primary_key=True)
@@ -30,10 +31,11 @@ class Address(Base):
     ulica_maticni_broj = Column(String)
     ulica_ime = Column(String)
     ulica_ime_lat = Column(String)
-    wkb_geometry = Column(Geometry(geometry_type='POINT', srid=32634))
+    wkb_geometry = Column(Geometry(geometry_type="POINT", srid=32634))
 
     def __repr__(self) -> str:
         return f"Address(id={self.ogc_fid!r}, kucni_broj={self.kucni_broj!r}, ulica_ime={self.ulica_ime!r}, opstina={self.opstina_ime!r} )"
+
 
 class PowerShutdownPoi(Base):
     __tablename__ = "power_shutdown_poi"
@@ -45,7 +47,8 @@ class PowerShutdownPoi(Base):
     matched_ulica_ime = Column(String)
     matched_ulica_ime_lat = Column(String)
     match_percentage = Column(Numeric)
-    geom = Column(Geometry(geometry_type='POINT', srid=32634))
+    geom = Column(Geometry(geometry_type="POINT", srid=32634))
+
 
 class AddressScrapped(Base):
     __tablename__ = "address_scrapped"

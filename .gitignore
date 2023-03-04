@@ -179,7 +179,7 @@ poetry.toml
 *.txt
 !requirements.txt
 
-# VS 
+# VS
 *.vscode
 
 # End of https://www.toptal.com/developers/gitignore/api/python

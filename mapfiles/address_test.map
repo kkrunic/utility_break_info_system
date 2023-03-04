@@ -1,0 +1,50 @@
+MAP
+  NAME "WMS-test" ##strongly recommended. containing no special characters or spaces
+  STATUS ON
+  SIZE 400 300
+  # EXTENT -2200000 -712631 3072800 3840000
+  UNITS METERS
+  IMAGECOLOR 255 255 255
+  # FONTSET "../etc/fonts.txt"
+
+  WEB
+    #   IMAGEPATH "/ms4w/tmp/ms_tmp/"
+    #   IMAGEURL "/ms_tmp/"
+    METADATA
+      "wms_title"          "WMS Demo Server"  ##required
+      "wms_abstract"       "Longer description of your service" ##recommended
+      "wms_onlineresource" "http://127.0.0.1/?map=/etc/mapserver/address_test.map"   ##required (must change mapfile path)
+      "wms_srs"            "EPSG:3978 EPSG:3857 EPSG:4269 EPSG:4326"  ##recommended
+      "wms_enable_request" "*"   ##required
+      "wms_getfeatureinfo_formatlist" "text/plain,text/html,application/vnd.ogc.gml,gml" ##recommended
+    END
+  END # Web
+
+  PROJECTION
+    "init=epsg:32634"   ##required
+  END
+
+  LAYER
+    NAME "addrese" ##no special characters or spaces
+    METADATA
+      "wms_title"         "Adrese POI"   ##required
+      "wms_abstract"      "Lejer sadrzi adresni registart" ##recommended
+      "wms_include_items" "all" ##optional
+      "gml_include_items" "all" ##optional
+      "gml_featureid"     "ogc_fid" ##optional
+      "gml_geometries"    "msgeom" ##optional
+      "gml_msgeom_type"   "point" ##optional
+    END
+    TYPE POINT
+    STATUS ON
+    CONNECTION "dbname='mydb' host='db' port=5432 user='postgres' password='postgres'"
+    CONNECTIONTYPE POSTGIS
+    DATA "wkb_geometry FROM address USING UNIQUE ogc_fid USING srid=32634"
+      # DATA "barajevo.gpkg"
+      # EXTENT -2340603.750000 -719746.062500 3009430.500000 3836605.250000 # for maximum performance
+    PROJECTION
+      "init=epsg:32634"   ##recommended
+    END
+    TEMPLATE "empty" ##recommended (enable GetFeatureInfo / can point to valid .html template)
+  END # Layer
+END # mapfile

@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests 
+import requests
 import pandas as pd
 from geocoder_nominatum import Geocoder
 from street_refactoring import street_name_parsing, reformat_street_numbers
@@ -41,7 +41,7 @@ import geopandas as gpd
 #     if idx == 0:
 #         print("zaglavlje")
 #         [column_names.append(c.text) for c in child.children]
-    
+
 #     else:
 #         print("Podaci")
 #         # print(child.prettify())
@@ -61,7 +61,7 @@ import geopandas as gpd
 
 
 print(df_2["Улице"])
-print(str(df_2.at[0,"Улице"]))
+print(str(df_2.at[0, "Улице"]))
 
 # dict_list = street_name_parsing(str(df_2.iloc[0,3]))
 # dict_list = reformat_street_numbers(dict_list)
@@ -72,9 +72,9 @@ shape_list = []
 
 for i in range(df_rows):
 
-    print(df_2.at[i,"Општина"])
+    print(df_2.at[i, "Општина"])
     try:
-        dict_list = street_name_parsing(str(df_2.at[i,street_col]))
+        dict_list = street_name_parsing(str(df_2.at[i, street_col]))
         dict_list = reformat_street_numbers(dict_list)
     except AttributeError:
         # FIXME:
@@ -83,28 +83,34 @@ for i in range(df_rows):
     for street_dict in dict_list:
         # if "Naselje" in street_dict:
         #     neighborhood = street_dict["Naselje"]
-        
+
         street_name = street_dict["Ulica"]
         print(street_name)
 
         for num in street_dict["Broj"]:
-            
-            street_full_name =  num + " " + street_name
+
+            street_full_name = num + " " + street_name
             print(street_full_name)
             g = Geocoder()
             try:
-                g.geocode(street=street_full_name ,city= "Belgrade", country= "Serbia", format="json", return_geometry=1)
+                g.geocode(
+                    street=street_full_name,
+                    city="Belgrade",
+                    country="Serbia",
+                    format="json",
+                    return_geometry=1,
+                )
                 shape_list.append(g.geometry)
             except IndexError:
                 # FIXME:
                 continue
-            
+
             del g
     del dict_list
 
 gdf = gpd.GeoDataFrame(geometry=shape_list)
 gdf.set_crs(epsg=4326)
-gdf.to_file('shapes.gpkg', driver='GPKG')
+gdf.to_file("shapes.gpkg", driver="GPKG")
 
 # def naselje_cleaning(input_street_txt):
 #     input_street_list = input_street_txt.split(":")
@@ -112,10 +118,9 @@ gdf.to_file('shapes.gpkg', driver='GPKG')
 #         if "Насеље" in i:
 #             input_street_txt.replace(i,"")
 #             input_street_list.remove(i)
-            
+
 #     return input_street_txt, input_street_list
 
 # def resolve_street_name():
 
 # def resovle_street_numbers(
-

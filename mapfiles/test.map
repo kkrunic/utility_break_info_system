@@ -1,0 +1,26 @@
+MAP
+    NAME "My Map"
+    STATUS ON
+    SIZE 500 500
+    EXTENT -180 -90 180 90
+    UNITS DD
+
+    LAYER
+      NAME "My Layer"
+      STATUS ON
+      TYPE POINT
+      CONNECTIONTYPE POSTGIS
+      CONNECTION "host=localhost user=postgres password=postgres port=5432 dbname=mydb"
+      DATA "wkb_geometry FROM address USING UNIQUE fid USING srid=32634"
+      PROJECTION
+        "init=epsg:32634"
+      END
+
+      CLASS
+        NAME "My Class"
+        STYLE
+          COLOR 255 0 0
+        END
+      END
+    END
+  END

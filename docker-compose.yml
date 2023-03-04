@@ -27,26 +27,26 @@ services:
       - 5432:5432
   data_processing:
     image: processing
-    build: 
+    build:
       context: .
       dockerfile: ./Dockerfile.processing
-    tty: true 
+    tty: true
     depends_on:
-      - db 
+      - db
   data_import:
     image: osgeo/gdal
     depends_on:
       - db
-    volumes: 
+    volumes:
       - ./data_import:/data_import
     command: bash -c "sleep 7 && /data_import/import.sh"
   address_ogc_service:
-    image: camptocamp/mapserver
+    image: camptocamp/mapserver:latest
     environment:
       - MS_DEBUGLEVEL=5
       # - LISTEN_PORT_80=1
     volumes:
-      - /mapfiles/address_test.map:/etc/mapserver/address_test.map
+      - /mapfiles/address_test.map/:/etc/mapserver/address_test.map
     ports:
       - 80:80
     depends_on:

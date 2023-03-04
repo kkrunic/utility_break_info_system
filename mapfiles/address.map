@@ -1,0 +1,30 @@
+MAP
+    NAME "Address test"
+    STATUS ON
+    SIZE 600 300
+    # EXTENT -180 -90 180 90
+    UNITS DD
+    # SHAPEPATH "data"
+    IMAGECOLOR 255 255 255
+    # FONTSET "fonts/fonts.list"
+    LAYER
+        NAME "address_test"
+        STATUS ON
+        TYPE POINT
+        CONNECTIONTYPE POSTGIS
+        CONNECTION "host=localhost user=postgres password=postgres port=5432 dbname=mydb"
+        DATA "wkb_geometry FROM address USING UNIQUE fid USING srid=32634"
+        # EXTENT -2340603.750000 -719746.062500 3009430.500000 3836605.250000 # for maximum performance
+        PROCESSING "CLOSE_CONNECTION=DEFER" # for maximum performance
+        CLASS
+      NAME "Provincial Land"
+        #   STYLE
+        #     COLOR 240 240 240
+        #     OUTLINECOLOR 199 199 199
+        #   END
+        END
+        PROJECTION #source
+            "init=epsg:32634"
+        END
+    END
+END
